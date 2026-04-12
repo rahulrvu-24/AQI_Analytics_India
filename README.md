@@ -1,10 +1,10 @@
-# 🌿 India AQI Analytics Dashboard
+# India AQI Analytics Dashboard
 
 An interactive, multi-page analytical dashboard built with **Streamlit** to explore India's air quality data from the Central Pollution Control Board (CPCB).
 
 ---
 
-## 📊 Overview
+## Overview
 
 This project analyses **235,785 daily AQI readings** collected across **32 states** and **291 cities** in India from **April 2022 to April 2025**. The goal is to surface meaningful patterns in air quality — seasonal trends, geographic hotspots, dominant pollutants, and year-over-year changes — through clean, interactive visualisations.
 
@@ -12,7 +12,7 @@ This project analyses **235,785 daily AQI readings** collected across **32 state
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 AQI_Project/
@@ -24,7 +24,7 @@ AQI_Project/
 
 ---
 
-## 📄 Dataset
+## Dataset
 
 | Field | Details |
 |---|---|
@@ -47,34 +47,34 @@ AQI_Project/
 
 ---
 
-## 🖥️ Dashboard Pages
+## Dashboard Pages
 
-### 🏠 Overview
+### Overview
 - National KPIs — total readings, states, cities, mean AQI, % good/satisfactory days
 - Air quality status distribution (donut chart + breakdown table)
 - National monthly AQI trend (Apr 2022 → Apr 2025)
 - Key findings: most/least polluted state, dominant pollutant
 
-### 📈 Trends
+### Trends
 - Year-over-year monthly AQI comparison (2022 vs 2023 vs 2024)
 - Seasonal analysis — average AQI and status mix by season
 - Month × Year AQI heatmap
 - Status share stacked area chart over time
 - Annual summary table (mean AQI, worst month, % poor days)
 
-### 🗺️ Geographic
+### Geographic
 - Full state AQI ranking with national average reference line
 - Top 10 most polluted vs cleanest cities
 - State deep-dive — monthly profile, city rankings, status breakdown
 
-### 🌬️ Pollutants
+### Pollutants
 - Primary pollutant frequency chart
 - Mean AQI per pollutant type
 - Pollutant × Status heatmap
 - Pollutant prevalence by season
 - State × Pollutant share heatmap
 
-### 🔍 Explorer
+### Explorer
 - Interactive multi-select filters (state / year / pollutant)
 - Filtered KPIs, AQI histogram, status breakdown
 - State comparison bar chart (multi-state selection)
@@ -83,7 +83,7 @@ AQI_Project/
 
 ---
 
-## ⚙️ Setup & Run
+## Setup & Run
 
 **Requirements**
 ```
@@ -109,7 +109,7 @@ Then open `http://localhost:8501` in your browser.
 
 ---
 
-## 💡 Key Findings
+## Key Findings
 
 - **PM10** is the dominant pollutant — present in ~47% of all readings — driven by road dust, construction, and desert geography in Rajasthan, UP, and Haryana.
 - **Winter (Oct–Jan)** consistently records the worst air quality nationwide, driven by crop stubble burning, temperature inversions, and reduced wind speeds.
@@ -118,7 +118,7 @@ Then open `http://localhost:8501` in your browser.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Tool | Purpose |
 |---|---|
@@ -130,7 +130,7 @@ Then open `http://localhost:8501` in your browser.
 
 ---
 
-## 📝 Notes
+## Notes
 
 - `.pkl` model files (`rf_model.pkl`, `svm_model.pkl`, `encoders.pkl`) from the earlier ML version of this project have been removed. The project is now analytics-only.
 - `__pycache__/` and `*.pkl` are excluded via `.gitignore`.
