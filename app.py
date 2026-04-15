@@ -612,7 +612,7 @@ elif page == "🗺️  Geographic":
         plt.tight_layout()
         st.pyplot(fig)
         plt.close()
-    # ── Status breakdown ──────────────────────────────────────────────────
+   # ── Status breakdown ──────────────────────────────────────────────────
     st_status = (state_df["air_quality_status"]
                  .value_counts()
                  .reindex(STATUS_ORDER)
@@ -625,12 +625,11 @@ elif page == "🗺️  Geographic":
             f"<div style='text-align:center; padding:10px; border-radius:8px; "
             f"background:{STATUS_COLORS[status]}22; border:1px solid {STATUS_COLORS[status]}55;'>"
             f"<div style='font-weight:700; color:{STATUS_COLORS[status]};font-size:0.9rem;'>{status}</div>"
-            f"<div style='font-size:1.2rem;font-weight:700; color:#0f172a;'>{count:,}</div>"
-            f"<div style='font-size:0.75rem;color:#64748b;'>{count/len(state_df)*100:.1f}%</div>"
+            f"<div style='font-size:1.2rem;font-weight:700; color:#ffffff;'>{count:,}</div>"
+            f"<div style='font-size:0.75rem;color:#94a3b8;'>{count/len(state_df)*100:.1f}%</div>"
             f"</div>",
             unsafe_allow_html=True,
         )
-
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE 4 — POLLUTANTS
 # ══════════════════════════════════════════════════════════════════════════════
