@@ -472,7 +472,6 @@ elif page == "📈  Trends":
     """, unsafe_allow_html=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # PAGE 3 — GEOGRAPHIC
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "🗺️  Geographic":
@@ -549,37 +548,76 @@ elif page == "🗺️  Geographic":
                              index=ALL_STATES.index("Delhi") if "Delhi" in ALL_STATES else 0)
     state_df  = df[df["state"] == sel_state]
 
+    # ── Custom metric cards ────────────────────────────────────────────────
+    mean_aqi    = f"{state_df['aqi_value'].mean():.1f}"
+    readings    = f"{len(state_df):,}"
+    cities      = str(state_df["area"].nunique())
+    worst_month = MONTH_LABELS[state_df.groupby("month")["aqi_value"].mean().idxmax() - 1]
+
+    def metric_card(label, value):
+        return f"""
+        <div style='
+            background: white;
+            border-radius: 10px;
+            padding: 16px 20px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        '>
+            <div style='font-size: 0.78rem; font-weight: 600; color: #64748b;
+                        text-transform: uppercase; letter-spacing: 0.05em;
+                        margin-bottom: 6px;'>{label}</div>
+            <div style='font-size: 1.6rem; font-weight: 700; color: #0f172a;
+                        line-height: 1.2;'>{value}</div>
+        </div>
+        """
+
     s1, s2, s3, s4 = st.columns(4)
-    s1.metric("Mean AQI",    f"{state_df['aqi_value'].mean():.1f}")
-    s2.metric("Readings",    f"{len(state_df):,}")
-    s3.metric("Cities",      state_df["area"].nunique())
-    s4.metric("Worst Month", MONTH_LABELS[state_df.groupby("month")["aqi_value"].mean().idxmax()-1])
+    s1.markdown(metric_card("Mean AQI",    mean_aqi),    unsafe_allow_html=True)
+    s2.markdown(metric_card("Readings",    readings),    unsafe_allow_html=True)
+    s3.markdown(metric_card("Cities",      cities),      unsafe_allow_html=True)
+    s4.markdown(metric_card("Worst Month", worst_month), unsafe_allow_html=True)
 
+    st.write("")   # ← add here
+    st.write("")   # ← add here
+
+    # ── Monthly AQI + City Rankings ───────────────────────────────────────
     col_sc1, col_sc2 = st.columns(2)
-
     with col_sc1:
         monthly_s = state_df.groupby("month")["aqi_value"].mean()
         fig, ax = plt.subplots(figsize=(6, 3.5))
-        ax.fill_between(range(1,13), [monthly_s.get(m, np.nan) for m in range(1,13)],
+        ax.fill_between(range(1, 13), [monthly_s.get(m, np.nan) for m in range(1, 13)],
                         alpha=0.15, color="#6366f1")
-        ax.plot(range(1,13), [monthly_s.get(m, np.nan) for m in range(1,13)],
+        ax.plot(range(1, 13), [monthly_s.get(m, np.nan) for m in range(1, 13)],
                 color="#6366f1", linewidth=2, marker="o", markersize=5)
-        ax.set_xticks(range(1,13)); ax.set_xticklabels(MONTH_LABELS, fontsize=8)
-        ax.set_ylabel("Mean AQI"); ax.set_title(f"{sel_state} — Monthly AQI",
-                                                 fontweight="bold", fontsize=10)
-        spines_off(ax); plt.tight_layout(); st.pyplot(fig); plt.close()
-
+        ax.set_xticks(range(1, 13))
+        ax.set_xticklabels(MONTH_LABELS, fontsize=8)
+        ax.set_ylabel("Mean AQI")
+        ax.set_title(f"{sel_state} — Monthly AQI", fontweight="bold", fontsize=10)
+        spines_off(ax)
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close()
     with col_sc2:
-        city_rank = state_df.groupby("area")["aqi_value"].mean().sort_values(ascending=False).head(10)
+        city_rank = (state_df.groupby("area")["aqi_value"]
+                     .mean()
+                     .sort_values(ascending=False)
+                     .head(10))
         fig, ax = plt.subplots(figsize=(6, 3.5))
         ax.barh(city_rank.index[::-1], city_rank.values[::-1],
                 color="#6366f1", edgecolor="white", height=0.6)
         ax.set_xlabel("Mean AQI")
         ax.set_title(f"{sel_state} — City Rankings", fontweight="bold", fontsize=10)
-        spines_off(ax); plt.tight_layout(); st.pyplot(fig); plt.close()
+        spines_off(ax)
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close()
+    # ── Status breakdown ──────────────────────────────────────────────────
+    st_status = (state_df["air_quality_status"]
+                 .value_counts()
+                 .reindex(STATUS_ORDER)
+                 .dropna())
 
-    # Status mix for this state
-    st_status = state_df["air_quality_status"].value_counts().reindex(STATUS_ORDER).dropna()
     st.markdown(f"**Status breakdown for {sel_state}:**")
     cols_st = st.columns(len(st_status))
     for col_i, (status, count) in zip(cols_st, st_status.items()):
@@ -587,12 +625,11 @@ elif page == "🗺️  Geographic":
             f"<div style='text-align:center; padding:10px; border-radius:8px; "
             f"background:{STATUS_COLORS[status]}22; border:1px solid {STATUS_COLORS[status]}55;'>"
             f"<div style='font-weight:700; color:{STATUS_COLORS[status]};font-size:0.9rem;'>{status}</div>"
-            f"<div style='font-size:1.2rem;font-weight:700;'>{count:,}</div>"
+            f"<div style='font-size:1.2rem;font-weight:700; color:#0f172a;'>{count:,}</div>"
             f"<div style='font-size:0.75rem;color:#64748b;'>{count/len(state_df)*100:.1f}%</div>"
             f"</div>",
             unsafe_allow_html=True,
         )
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE 4 — POLLUTANTS
