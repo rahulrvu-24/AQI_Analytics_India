@@ -16,10 +16,16 @@ This project analyses **235,785 daily AQI readings** collected across **32 state
 
 ```
 AQI_Project/
-├── app.py          ← Streamlit dashboard (5 pages)
-├── aqi.csv         ← Raw dataset (CPCB India, 235K rows)
-├── .gitignore      ← Excludes __pycache__, *.pkl, *.pyc
-└── README.md       ← This file
+├── app.py                  ← Page 1: Overview (entry point)
+├── utils.py                ← Shared: CSS, constants, load_data(), helpers
+├── pages/
+│   ├── trends.py         ← Page 2: Trends
+│   ├── geographic.py     ← Page 3: Geographic
+│   ├── pollutants.py     ← Page 4: Pollutants
+│   └── explorer.py       ← Page 5: Explorer
+├── aqi.csv
+├── .gitignore
+└── README.md
 ```
 
 ---
