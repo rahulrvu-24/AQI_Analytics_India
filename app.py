@@ -1,7 +1,3 @@
-# TO RUN: python -m streamlit run app.py
-# This file is the HOME page (Page 1 — Overview).
-# Pages 2–5 live in pages/ and are picked up automatically by Streamlit.
-
 import streamlit as st
 import pandas as pd
 import numpy as np

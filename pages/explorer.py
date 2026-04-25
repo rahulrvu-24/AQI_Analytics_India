@@ -11,6 +11,40 @@ st.set_page_config(page_title="Explorer | India AQI", page_icon="🔍", layout="
 inject_css()
 
 df = load_data()
+
+with st.sidebar:
+    st.markdown("""
+    <div style='padding:18px 4px 8px;'>
+        <div style='font-size:1.6rem;'>🌿</div>
+        <div style='font-size:1.1rem; font-weight:700; color:#f1f5f9 !important; margin-top:4px;'>
+            India AQI Analytics
+        </div>
+        <div style='font-size:0.76rem; color:#94a3b8 !important; margin-top:2px;'>
+            CPCB · Apr 2022 – Apr 2025
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown(
+        "<hr style='border-color:rgba(255,255,255,0.07); margin:16px 0;'>",
+        unsafe_allow_html=True,
+    )
+    st.markdown("<div class='nav-label'>Dataset</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<span style='font-size:0.85rem;'>"
+        f"📋 {len(df):,} records<br>"
+        f"🗺️ {df['state'].nunique()} states<br>"
+        f"🏙️ {df['area'].nunique()} cities<br>"
+        f"📅 {df['year'].min()}–{df['year'].max()}"
+        "</span>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        "<div style='margin-top:24px; font-size:0.7rem; color:#475569 !important;'>"
+        "Source: CPCB India · Built with Streamlit</div>",
+        unsafe_allow_html=True,
+    )
+    
 ALL_STATES     = sorted(df["state"].unique())
 ALL_YEARS      = sorted(df["year"].dropna().unique().astype(int).tolist())
 ALL_POLLUTANTS = sorted(df["primary_pollutant"].unique())
