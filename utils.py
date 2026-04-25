@@ -163,5 +163,4 @@ def metric_card(label, value):
 
 
 def inject_css():
-    """Call once at the top of every page file to apply shared styles."""
     st.markdown(CSS, unsafe_allow_html=True)

@@ -19,8 +19,8 @@ inject_css()
 
 # ── Sidebar info ──────────────────────────────────────────────────────────────
 df = load_data()
-ALL_STATES     = sorted(df["state"].unique())
-ALL_YEARS      = sorted(df["year"].dropna().unique().astype(int).tolist())
+ALL_STATES = sorted(df["state"].unique())
+ALL_YEARS = sorted(df["year"].dropna().unique().astype(int).tolist())
 ALL_POLLUTANTS = sorted(df["primary_pollutant"].unique())
 
 with st.sidebar:
