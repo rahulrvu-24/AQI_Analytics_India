@@ -16,13 +16,13 @@ This project analyses **235,785 daily AQI readings** collected across **32 state
 
 ```
 AQI_Project/
-├── app.py                  ← Page 1: Overview (entry point)
+├── Dashboard.py            ← Page 1: Overview (entry point)
 ├── utils.py                ← Shared: CSS, constants, load_data(), helpers
 ├── pages/
-│   ├── trends.py         ← Page 2: Trends
-│   ├── geographic.py     ← Page 3: Geographic
-│   ├── pollutants.py     ← Page 4: Pollutants
-│   └── explorer.py       ← Page 5: Explorer
+│   ├── Trends.py         ← Page 2: Trends
+│   ├── Geographic.py     ← Page 3: Geographic
+│   ├── Pollutants.py     ← Page 4: Pollutants
+│   └── Explorer.py       ← Page 5: Explorer
 ├── aqi.csv
 ├── .gitignore
 └── README.md
