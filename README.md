@@ -25,6 +25,7 @@ AQI_Project/
 │   └── Explorer.py       ← Page 5: Explorer
 ├── aqi.csv
 ├── .gitignore
+├── requirements.txt
 └── README.md
 ```
 
@@ -55,7 +56,7 @@ AQI_Project/
 
 ## Dashboard Pages
 
-### Overview
+### Dashboard
 - National KPIs — total readings, states, cities, mean AQI, % good/satisfactory days
 - Air quality status distribution (donut chart + breakdown table)
 - National monthly AQI trend (Apr 2022 → Apr 2025)
